@@ -4,7 +4,8 @@ public class ToDoItem {
     String text;
     boolean isDone;
 
-
+    public ToDoItem() {
+    }
 
     public String getText() {
         return text;

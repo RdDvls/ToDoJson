@@ -9,6 +9,10 @@ import java.util.List;
 public class Container {
     List todoContainer = new ArrayList();
 
+    public Container(List todoContainer) {
+        this.todoContainer = todoContainer;
+    }
+
     public List getTodoContainer() {
         return todoContainer;
     }

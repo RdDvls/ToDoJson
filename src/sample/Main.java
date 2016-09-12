@@ -33,18 +33,6 @@ public class Main extends Application{
         });
         primaryStage.show();
     }
-
-    public void saveFile (String jsonString){       //Writes to file
-        try{
-            File jsonFile = new File("ToDoInput.json");
-            FileWriter jsonWriter = new FileWriter(jsonFile);
-            jsonWriter.write(jsonString);
-            jsonWriter.close();
-        }catch (IOException ioe){
-            ioe.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
 //        ToDoItem hardCodedItem = new ToDoItem("This is the string");
 //        Main myMain = new Main();

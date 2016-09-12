@@ -39,10 +39,14 @@ public class Controller implements Initializable {
         userName = inputScanner.nextLine();
 //        todoList.setItems(todoItems);
 
+
+
         if (userName != null && !userName.isEmpty()) {
             fileName = userName + ".json";
         }
+
         ToDoItemList existingList = retrieveList();
+
         if (existingList != null) {
             for (ToDoItem item : existingList.todoItems) {
                 todoItems.add(item);
@@ -73,24 +77,25 @@ public class Controller implements Initializable {
         }
     }
 
-    public String jsonSave(String todoToSave) {
-        JsonSerializer jsonSerializer = new JsonSerializer().deep(true);
-        String jsonString = jsonSerializer.serialize(todoToSave);
-
-        return jsonString;
-    }
-
-    public ToDoItem jsonRestore(String jsonTD) {
-        JsonParser toDoItemParser = new JsonParser();
-        ToDoItem item = toDoItemParser.parse(jsonTD, ToDoItem.class);
-
-        return item;
-    }
+//    public String jsonSave(String todoToSave) {
+//        JsonSerializer jsonSerializer = new JsonSerializer().deep(true);
+//        String jsonString = jsonSerializer.serialize(todoToSave);
+//
+//        return jsonString;
+//    }
+//
+//    public ToDoItem jsonRestore(String jsonTD) {
+//        JsonParser toDoItemParser = new JsonParser();
+//        ToDoItem item = toDoItemParser.parse(jsonTD, ToDoItem.class);
+//
+//        return item;
+//    }
 
 
     public void addItem() {
         System.out.println("Adding item ...");
         todoItems.add(new ToDoItem(todoText.getText()));
+
         todoText.setText("");
     }
 
@@ -160,12 +165,14 @@ public class Controller implements Initializable {
             fileScanner.useDelimiter("\\Z");
             String fileContents = fileScanner.next();
             JsonParser ToDoItemParser = new JsonParser();
-
             ToDoItemList theListContainer = ToDoItemParser.parse(fileContents, ToDoItemList.class);
+            if(theListContainer != null){
+                for (ToDoItem item : theListContainer.todoItems) {
+                    todoItems.add(item);
+                }
+            }
             return theListContainer;
         } catch (IOException ioException) {
-            // if we can't find the file or run into an issue restoring the object
-            // from the file, just return null, so the caller knows to create an object from scratch
             return null;
         }
 
